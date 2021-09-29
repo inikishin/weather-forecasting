@@ -47,7 +47,7 @@ function WeatherCard(props) {
     const feels_like = props.feels_like instanceof Object ? props.feels_like.day : props.feels_like
     const dt = new Date();
     dt.setTime(Number(props.dt) * 1000);
-    console.log(Number(props.dt));
+
     return (
         <Box width={130}>
             <Card>
