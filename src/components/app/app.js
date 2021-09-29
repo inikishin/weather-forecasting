@@ -22,11 +22,9 @@ function App() {
     const initialWeatherState = {coord: {lon: 37.59, lat: 55.75}};
     const [weatherData, setWeatherData] = useState(initialWeatherState);
 
-    console.log(weatherData);
-
     useEffect(() => {
         async function getData() {
-            await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=100&appid=097538d4a84ca8a0c65e114e765652a2`)
+            await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=100&appid=097538d4a84ca8a0c65e114e765652a2`)
                 .then(res => {
                     if (res.ok) {
                         return res.json();
@@ -71,7 +69,6 @@ function App() {
     }
 
     const handleEnter = (e) => {
-        console.log(e)
         if (e.key === 'Enter') {
             setCity(inputRef.current.value);
         }
