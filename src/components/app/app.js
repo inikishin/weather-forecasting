@@ -9,18 +9,9 @@ import {
     Tab,
     TextField,
     Button,
-    List,
-    ListItem,
-    ListItemText,
-    Card,
-    CardContent, ListItemIcon,
 } from "@mui/material";
-import DeviceThermostatIcon from '@mui/icons-material/DeviceThermostat';
-import BeachAccessIcon from '@mui/icons-material/BeachAccess';
-import ChildCareIcon from '@mui/icons-material/ChildCare';
-import DownloadIcon from '@mui/icons-material/Download';
 import {Map, YMaps, Placemark} from 'react-yandex-maps';
-import {format} from 'date-fns';
+import Weather from "../weather/weather";
 
 function App() {
 
@@ -93,11 +84,11 @@ function App() {
     return (
         <Container maxWidth='lg'>
             <AppBar position='fixed'>
-                <Box padding={2}>
+                <Box padding={1}>
                     <Typography variant='h1' textAlign='center'>Weather Forecasting</Typography>
                 </Box>
             </AppBar>
-            <Box marginTop={20}>
+            <Box marginTop={16}>
                 <Paper>
                     <Box display='grid' gridTemplateColumns='80% 20%' alignItems='center' padding={2}>
                         <Box>
@@ -134,74 +125,6 @@ function App() {
             </Box>
         </Container>
     );
-}
-
-function Weather(props) {
-    let arr = [];
-    switch (props.tab) {
-        case 0: {
-            arr.push(props.data.current);
-            break;
-        }
-        case 1: {
-            arr.push(props.data.hourly[23], props.data.hourly[47]);
-            break;
-        }
-        case 2: {
-            arr.push(...props.data.daily);
-            break;
-        }
-        default: {
-            break;
-        }
-    }
-    return (
-        <Box display='flex'>
-            {arr.map(item => (<WeatherCard {...item} />))}
-        </Box>
-    );
-}
-
-function WeatherCard(props) {
-
-    const temp = props.temp instanceof Object ? props.temp.day : props.temp;
-    const feels_like = props.feels_like instanceof Object ? props.feels_like.day : props.feels_like
-    const dt = new Date();
-    dt.setTime(Number(props.dt) * 1000);
-    console.log(Number(props.dt));
-    return (
-        <Box width={144}>
-            <Card>
-                <CardContent>
-                    <List>
-                        <ListItem>
-                            <ListItemText><Typography variant='h4'
-                                                      textAlign='center'>{format(dt, 'dd.MM')}</Typography></ListItemText>
-                        </ListItem>
-                        <ListItem>
-                            <ListItemIcon><DeviceThermostatIcon/></ListItemIcon>
-                            <ListItemText><Typography
-                                textAlign='end'>{Math.round(Number(temp) - 273.15)}</Typography></ListItemText>
-                        </ListItem>
-                        <ListItem>
-                            <ListItemIcon><ChildCareIcon/></ListItemIcon>
-                            <ListItemText><Typography
-                                textAlign='end'>{Math.round(Number(feels_like) - 273.15)}</Typography></ListItemText>
-                        </ListItem>
-                        <ListItem>
-                            <ListItemIcon><BeachAccessIcon/></ListItemIcon>
-                            <ListItemText><Typography textAlign='end'>{Math.round(Number(props.humidity))}%</Typography></ListItemText>
-                        </ListItem>
-                        <ListItem>
-                            <ListItemIcon><DownloadIcon/></ListItemIcon>
-                            <ListItemText><Typography
-                                textAlign='end'>{Math.round(Number(props.pressure) / 1.333)}</Typography></ListItemText>
-                        </ListItem>
-                    </List>
-                </CardContent>
-            </Card>
-        </Box>
-    )
 }
 
 export default App;
